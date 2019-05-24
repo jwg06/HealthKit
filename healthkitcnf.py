@@ -16,3 +16,10 @@ DB_NAME = 'database'
 NAME = 'Me' #Name of persons data
 
 vCount = 0
+
+#SMTP Config - For Gmail.  Email password is an app password generated from your security settings if using 2 factor auth.
+email_user = 'email'
+email_pass = 'password'
+email_sendto = 'sendto email'
+email_subject = 'Healthkit Import Notification'
+email_body = 'SUBJECT: Healthkit Import Completed Successfully!'

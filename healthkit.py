@@ -64,6 +64,23 @@ def healthkit_csv():
                 HKValues = list(csv.reader(csvfile))
         return HKValues
 
+#Send Notification once completed
+def healthkit_notify():
+    try:
+        email_ssl = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+        email_ssl.ehlo
+        email_ssl.login(healthkitcnf.email_user, healthkitcnf.email_pass)
+        sent_from = healthkitcnf.email_user  
+        send_to = healthkitcnf.email_sendto  
+        subject = healthkitcnf.email_subject
+        email_text = healthkitcnf.email_body
+        email_ssl.sendmail(sent_from, send_to, email_text)
+        email_ssl.close()
+        logger.info("Notification Sent")
+    except:
+        logger.debug("Failed to send completed notification.")
+    return (logger.info("Email sent"))
+
 #XML Parse / Import HKValues.txt / Update DB
 def healthkit_xml():
         NAME = healthkitcnf.NAME
@@ -219,3 +236,4 @@ def healthkit_xml():
 healthkit_import()
 client = healthkit_db()
 healthkit_xml()
+healthkit_notify()
